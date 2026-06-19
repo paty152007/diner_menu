@@ -127,16 +127,26 @@ function hacerPedido(menu) {
     const categorias = Object.values(menu);
 
     for (const categoria of categorias) {
-        const eleccion = prompt(
-            `Elige tu ${categoria.nombre}:
+        let platoElegido = null;
 
-${mostrarPrecio(categoria.platos)}`
-        );
+        while (platoElegido === null) {
+            const eleccion = prompt(
+                `Elige tu ${categoria.nombre}:
 
-        const platoElegido = validarPlato(
-            eleccion,
-            categoria.platos
-        );
+${mostrarPrecio(categoria.platos)}
+
+(Pulsa Cancelar para omitir esta categoría)`
+            );
+
+            if (eleccion === null) {
+                break;
+            }
+
+            platoElegido = validarPlato(
+                eleccion,
+                categoria.platos
+            );
+        }
 
         if (platoElegido) {
             pedido.push(platoElegido);
